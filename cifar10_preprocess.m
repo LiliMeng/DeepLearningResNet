@@ -18,16 +18,7 @@ n_train = size(train_features,1);
 n_test  = size(test_features,1);
 
 
-for i=1:n_train 
-    new_train_features = reshape(train_features(i,:),32,32,3);
-end   
-
-
-for i=1:n_test
-    new_test_features = reshape(test_features(i,:),32,32,3);
-end   
-
-
+Labels_std_train_1=zeros(n_train,10);
 for i=1:n_train 
     label_std_train= train_labels(i,:);
     label_std_train_1=zeros(1,10);
@@ -39,6 +30,7 @@ for i=1:n_train
     Labels_std_train_1(i,:)=label_std_train_1;
 end
 
+Labels_std_test_1=zeros(n_test,10);
 for i=1:n_test
     label_std_test= test_labels(i,:);
     label_std_test_1=zeros(1,10);
@@ -51,8 +43,8 @@ for i=1:n_test
 end
 
 
-field1 = 'Ctrain';  value1 = new_train_features;
-field2 = 'Cval';  value2 =  new_test_features;
+field1 = 'Ctrain';  value1 = train_features;
+field2 = 'Cval';  value2 =  test_features;
 field3 = 'Ytrain';  value3 =  Labels_std_train_1;
 field4 = 'Yval';  value4 =  Labels_std_test_1;
 
@@ -61,5 +53,4 @@ field4 = 'Yval';  value4 =  Labels_std_test_1;
 S = struct(field1,value1,field2,value2,field3,value3,field4,value4)
 
 save cifar10_data.mat -struct S
-
 
